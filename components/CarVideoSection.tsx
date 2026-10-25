@@ -44,9 +44,31 @@ const SECTORS: SectorInfo[] = [
   },
 ];
 
+const AVAILABLE_VIDEOS = [
+  {
+    id: "Bc9UUPNaOzE",
+    title: "Official 6:57 Lap Record",
+    subtitle: "Nürburgring Nordschleife · Marc Lieb",
+    tag: "Porsche Official",
+  },
+  {
+    id: "gqOUfOFjWps",
+    title: "Full 4K Track Review",
+    subtitle: "Throttle House · Pure V8 & Hybrid Dynamics",
+    tag: "Track Test",
+  },
+  {
+    id: "szyUN5GlQ7c",
+    title: "Chris Harris on Cars",
+    subtitle: "Valencia Circuit · 887 HP at the Limit",
+    tag: "Chris Harris",
+  },
+];
+
 export default function CarVideoSection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeSector, setActiveSector] = useState<SectorInfo>(SECTORS[0]);
+  const [activeVideo, setActiveVideo] = useState(AVAILABLE_VIDEOS[0]);
 
   return (
     <section
@@ -80,7 +102,7 @@ export default function CarVideoSection() {
         <div className="relative rounded-2xl md:rounded-3xl p-1 bg-gradient-to-b from-white/15 via-white/5 to-transparent shadow-[0_20px_70px_rgba(2,132,199,0.15)] border border-white/10 backdrop-blur-xl">
 
           {/* Top HUD Telemetry Bar */}
-          <div className="flex items-center justify-between px-4 sm:px-6 py-3 bg-black/60 rounded-t-xl sm:rounded-t-2xl border-b border-white/10 text-[10px] sm:text-xs font-mono text-neutral-400">
+          <div className="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-black/60 rounded-t-xl sm:rounded-t-2xl border-b border-white/10 text-[10px] sm:text-xs font-mono text-neutral-400">
             <div className="flex items-center gap-3">
               <span className="inline-flex items-center gap-1.5 text-red-400 font-semibold">
                 <span className="size-2 rounded-full bg-red-500 animate-ping" />
@@ -89,8 +111,27 @@ export default function CarVideoSection() {
               <span className="hidden sm:inline text-neutral-600">|</span>
               <span className="hidden sm:inline text-neutral-400">DRIVER: MARC LIEB</span>
             </div>
-            <div className="flex items-center gap-3 text-neutral-400">
-              <span className="hidden md:inline">20.832 KM · 73 CORNERS</span>
+
+            {/* Video Selector Tabs */}
+            <div className="flex items-center gap-1 bg-neutral-900/90 p-1 rounded-lg border border-white/10">
+              {AVAILABLE_VIDEOS.map((vid) => (
+                <button
+                  key={vid.id}
+                  type="button"
+                  onClick={() => setActiveVideo(vid)}
+                  className={`px-2.5 py-1 rounded text-[10px] sm:text-[11px] font-mono tracking-wider transition-all cursor-pointer ${
+                    activeVideo.id === vid.id
+                      ? "bg-sky-500 text-black font-bold shadow-[0_0_12px_rgba(56,189,248,0.4)]"
+                      : "text-neutral-400 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  {vid.title}
+                </button>
+              ))}
+            </div>
+
+            <div className="hidden lg:flex items-center gap-3 text-neutral-400">
+              <span>20.832 KM · 73 CORNERS</span>
               <span className="text-emerald-400 font-semibold">OFFICIAL FIA VERIFIED</span>
             </div>
           </div>
@@ -100,22 +141,37 @@ export default function CarVideoSection() {
             {isPlaying ? (
               <div className="relative w-full h-full">
                 <iframe
-                  className="w-full h-full"
-                  src="https://www.youtube-nocookie.com/embed/2Yygvd1lhpA?autoplay=1&rel=0&modestbranding=1"
-                  title="Porsche 918 Spyder Nürburgring Nordschleife 6:57 Lap Record"
+                  key={activeVideo.id}
+                  className="w-full h-full border-0"
+                  src={`https://www.youtube-nocookie.com/embed/${activeVideo.id}?autoplay=1&rel=0`}
+                  title={`Porsche 918 Spyder - ${activeVideo.title}`}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                 />
-                <button
-                  type="button"
-                  onClick={() => setIsPlaying(false)}
-                  className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/20 text-[11px] font-mono tracking-wider backdrop-blur-md transition-all cursor-pointer"
-                >
-                  <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  <span>CLOSE FILM</span>
-                </button>
+                <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+                  <a
+                    href={`https://www.youtube.com/watch?v=${activeVideo.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/80 hover:bg-black text-white hover:text-sky-400 border border-white/20 text-[10px] sm:text-[11px] font-mono tracking-wider backdrop-blur-md transition-all cursor-pointer shadow-lg"
+                  >
+                    <span>OPEN ON YOUTUBE</span>
+                    <svg className="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setIsPlaying(false)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/80 hover:bg-black text-white border border-white/20 text-[10px] sm:text-[11px] font-mono tracking-wider backdrop-blur-md transition-all cursor-pointer shadow-lg"
+                  >
+                    <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>CLOSE FILM</span>
+                  </button>
+                </div>
               </div>
             ) : (
               /* High-End Cinematic Preview Poster Screen */
@@ -140,14 +196,14 @@ export default function CarVideoSection() {
                       Onboard In-Car Camera
                     </span>
                     <h3 className="text-lg sm:text-2xl font-bold tracking-tight text-white uppercase font-sans">
-                      Porsche 918 Spyder Weissach Package
+                      {activeVideo.title}
                     </h3>
                   </div>
 
                   <div className="hidden sm:flex items-center gap-2 bg-neutral-900/80 border border-white/10 px-3 py-1.5 rounded-lg backdrop-blur-md font-mono text-[11px] text-neutral-300">
-                    <span className="text-emerald-400 font-bold">887 HP</span>
+                    <span className="text-sky-400 font-bold">{activeVideo.tag}</span>
                     <span>·</span>
-                    <span>MICHELIN PILOT SPORT CUP 2</span>
+                    <span className="text-emerald-400 font-bold">887 HP</span>
                   </div>
                 </div>
 
@@ -174,10 +230,10 @@ export default function CarVideoSection() {
                   </button>
 
                   <span className="mt-4 text-xs sm:text-sm font-mono tracking-[0.25em] uppercase text-white font-semibold">
-                    Launch Onboard Film
+                    Launch Film
                   </span>
                   <span className="text-[10px] sm:text-xs font-mono text-neutral-400 tracking-wider mt-0.5">
-                    Official 4K Nürburgring Record Lap
+                    {activeVideo.subtitle}
                   </span>
                 </div>
 
