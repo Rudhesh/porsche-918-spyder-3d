@@ -2,11 +2,25 @@
 
 :root {
   --background: #000;
-  overflow-x: hidden;
+}
+
+html {
+  background: var(--background);
+  /* Enable smooth scrolling across all devices */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
   background: var(--background);
+  min-height: 100vh;
+  /* Allow natural vertical document scrolling without interference */
+  touch-action: pan-y;
+}
+
+/* Ensure WebGL canvas NEVER captures, absorbs, or blocks scroll/touch/wheel gestures */
+canvas {
+  pointer-events: none !important;
 }
 
 @utility hover-animation {

@@ -1,25 +1,37 @@
 "use client";
-import clsx from "clsx";
-import { useParams, useRouter } from "next/navigation";
+import React from "react";
 import MusicStreamLine from "./MusicStreamLine";
 
-const Header = () => {
-  const color = useParams()?.slug === "white" ? "bg-black" : "bg-white";
-  const { replace } = useRouter();
+export default function Header() {
   return (
-    <div className="fixed z-10 flex justify-between items-center w-full md:pt-10 pt-3 md:px-20 px-5">
-      <div
-        onClick={() => {
-          replace("/");
-        }}
-        className={clsx(
-          "mask-[url(/icons/footLocker.svg)] md:w-44 w-40 h-16 mask-no-repeat hover-animation ",
-          color
-        )}
-      />
-      <MusicStreamLine color={color} />
-    </div>
-  );
-};
+    <header className="fixed top-0 inset-x-0 z-50 flex justify-between items-center w-full px-6 md:px-16 py-6 md:py-8 backdrop-blur-md bg-black/20 border-b border-white/[0.06]">
+      {/* Brand logo & name */}
+      <div className="flex items-center gap-3">
+        <span className="text-xl md:text-2xl font-black tracking-[0.25em] text-white uppercase font-sans">
+          PORSCHE
+        </span>
+        <span className="text-[10px] tracking-widest text-sky-400 font-mono px-2 py-0.5 rounded border border-sky-500/30 bg-sky-950/30">
+          918 SPYDER
+        </span>
+      </div>
 
-export default Header;
+      {/* Nav items */}
+      <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.2em] uppercase text-neutral-400 font-medium">
+        <a href="#hero" className="hover:text-white transition-colors">Overview</a>
+        <a href="#specs" className="hover:text-white transition-colors">Engineering</a>
+        <a href="#video-section" className="hover:text-white transition-colors">Film</a>
+      </nav>
+
+      {/* Sound toggle & CTA */}
+      <div className="flex items-center gap-5">
+        <MusicStreamLine color="bg-white" />
+        <a
+          href="#video-section"
+          className="hidden sm:inline-flex text-[11px] tracking-widest uppercase font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-full transition-all backdrop-blur-sm"
+        >
+          Experience
+        </a>
+      </div>
+    </header>
+  );
+}

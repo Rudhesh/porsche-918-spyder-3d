@@ -6,13 +6,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const mulish = Mulish({
-  subsets: ["cyrillic"],
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
-  title: "adidas",
+  title: "Porsche 918 Spyder — Asphalt Edition | 3D Experience",
   description:
-    "Foot Locker and adidas Originals' latest collection breaks new ground.",
+    "Immersive 3D interactive showcase of the iconic Porsche 918 Spyder hybrid supercar. Powered by Next.js, Three.js, and GSAP.",
 };
 
 export default function RootLayout({
@@ -21,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${mulish.className} antialiased`}>
+    <html lang="en" className="dark scroll-smooth">
+      <body className={`${mulish.className} bg-black text-white antialiased selection:bg-sky-500 selection:text-white`}>
         <ViewCanvas />
         <Header />
         {children}
