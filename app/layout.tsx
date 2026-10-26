@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   title: "Porsche 918 Spyder — Asphalt Edition | 3D Experience",
   description:
     "Immersive 3D interactive showcase of the iconic Porsche 918 Spyder hybrid supercar. Powered by Next.js, Three.js, and GSAP.",
+  icons: {
+    icon: "/icons/porsche.svg",
+    shortcut: "/icons/porsche.svg",
+    apple: "/icons/porsche.svg",
+  },
 };
 
 export default function RootLayout({

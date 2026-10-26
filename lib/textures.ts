@@ -24,7 +24,7 @@ export const studioTextures = {
       third: {
         normal: "/textures/FloorNormal.png",
         overlay: "/textures/SmudgesOverlay.jpg",
-        icon: "/textures/adidas.png",
+        icon: "/icons/porsche.svg",
       },
     },
     gray: {
@@ -41,7 +41,7 @@ export const studioTextures = {
       third: {
         normal: "/textures/FloorNormal.png",
         overlay: "/textures/SmudgesOverlay.jpg",
-        icon: "/textures/adidas.png",
+        icon: "/icons/porsche.svg",
       },
     },
     sport: {
@@ -58,7 +58,7 @@ export const studioTextures = {
       third: {
         normal: "/textures/FloorNormal.png",
         overlay: "/textures/SmudgesOverlay.jpg",
-        icon: "/textures/adidas.png",
+        icon: "/icons/porsche.svg",
       },
     },
   },
@@ -71,9 +71,9 @@ export const environmentPaths = {
 };
 
 export const videoTextures = {
-  white: "/textures/white/third/adidas.mp4",
-  gray: "/textures/gray/third/adidas.mp4",
-  sport: "/textures/sport/third/adidas.mp4",
+  white: "/textures/white/third/porsche.mp4",
+  gray: "/textures/gray/third/porsche.mp4",
+  sport: "/textures/sport/third/porsche.mp4",
 };
 
 //Image path => useTexture
