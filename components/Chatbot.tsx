@@ -23,7 +23,7 @@ export default function Chatbot() {
 
   async function sendMessage() {
     const userQuestion = question.trim();
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const API_URL = process.env.NEXT_API_URL;
 
     if (!userQuestion || isThinking) return;
 
